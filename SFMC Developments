@@ -1,0 +1,107 @@
+A Salesforce Marketing Cloud (SFMC) Developer is a technical professional who builds, customizes, integrates, and automates solutions in Salesforce Marketing Cloud. While an SFMC Business Analyst or Marketing Automation Specialist focuses on campaign execution and business requirements, an SFMC Developer focuses on the technical implementation.
+
+What does an SFMC Developer do?
+1. Develop Email Templates
+Build responsive HTML/CSS email templates.
+Use AMPscript for dynamic content.
+Use Server-Side JavaScript (SSJS) for advanced personalization.
+Create reusable content blocks.
+2. Write SQL Queries
+Create SQL queries in Automation Studio.
+Segment audiences.
+Populate Data Extensions.
+Optimize query performance.
+3. Build Automations
+Create Automation Studio workflows.
+Import/export files.
+Schedule SQL activities.
+Trigger emails and journeys.
+4. Integrate SFMC with Other Systems
+Use REST APIs and SOAP APIs.
+Integrate with Salesforce CRM.
+Connect websites, apps, payment gateways, and third-party systems.
+Configure authentication using OAuth.
+5. Develop Landing Pages
+Create landing pages using CloudPages.
+Build forms.
+Capture customer information.
+Handle form submissions using AMPscript and SSJS.
+6. Journey Builder Development
+Configure entry sources.
+Set decision splits.
+Create custom activities.
+Implement triggered sends.
+7. Data Management
+Design Data Extensions.
+Create Contact Builder relationships.
+Manage synchronized data sources.
+Ensure data quality.
+8. Personalization
+Dynamic email content.
+Personalized subject lines.
+Conditional content.
+Product recommendations.
+9. Debugging
+Resolve automation failures.
+Troubleshoot API errors.
+Fix AMPscript issues.
+Optimize SQL queries.
+Skills Required
+SFMC Skills
+Email Studio
+Journey Builder
+Automation Studio
+Contact Builder
+Mobile Studio
+Content Builder
+Programming Skills
+HTML
+CSS
+JavaScript
+AMPscript
+SSJS
+SQL
+Integration Skills
+REST API
+SOAP API
+JSON
+OAuth
+Salesforce Knowledge
+CRM integration
+Synchronized Data Extensions
+Data Model
+Contact Model
+Example Tasks
+Create an automated welcome email journey.
+Build a CloudPage for event registration.
+Write a SQL query to identify students who partially paid fees.
+Send personalized emails based on program type.
+Integrate SFMC with Salesforce CRM.
+Build dynamic CTAs using AMPscript.
+Create triggered email sends using APIs.
+Based on your experience
+
+From what you've shared previously, you're already working with:
+
+✅ Automation Studio
+✅ Journey Builder
+✅ SQL Queries
+✅ Data Extensions
+✅ Contact Builder
+✅ Email Studio
+✅ Dynamic CTAs using AMPscript
+✅ WhatsApp and SMS campaigns
+✅ SFMC–CRM data synchronization
+
+To move into a full SFMC Developer role, I'd recommend strengthening these areas:
+
+HTML/CSS for email development
+AMPscript (advanced)
+SSJS
+REST & SOAP APIs
+CloudPages
+Triggered Sends via API
+OAuth authentication
+Git/GitHub for version control
+
+These are the skills most employers expect from an SFMC Developer.
