@@ -1,0 +1,73 @@
+SELECT
+    CONCAT(
+        c.Email,
+        '_',
+        CASE
+            WHEN c.MobilePhone LIKE '+91-%'
+                THEN REPLACE(c.MobilePhone, '+91-', '91')
+            WHEN c.MobilePhone LIKE '91%'
+                THEN c.MobilePhone
+            ELSE CONCAT('91', c.MobilePhone)
+        END,
+        '_534019461'
+    ) AS SubscriberKey,
+
+    'IN' AS Locale,
+
+    a.Id AS ApplicationId,
+    c.Name AS Student_full_name,
+    c.Email,
+
+    CASE
+        WHEN c.MobilePhone LIKE '+91-%'
+            THEN REPLACE(c.MobilePhone, '+91-', '91')
+        WHEN c.MobilePhone LIKE '91%'
+            THEN c.MobilePhone
+        ELSE CONCAT('91', c.MobilePhone)
+    END AS StudentMobile,
+
+    c.Country__c,
+    c.Disposition__c,
+    a.hed__Application_Status__c AS ApplicationStatus,
+    c.School_Name__c,
+    c.Program_Name__c as Programme,
+    u.Name AS OwnerName,
+    u.MobilePhone AS OwnerMobile,
+    c.Program_Batch_Name__c,
+    c.Program_Type__c,
+    c. Application_Fee_Paid__c
+   
+
+FROM hed__Application__c_Salesforce a
+
+INNER JOIN Contact_Salesforce c
+    ON a.hed__Applicant__c = c.Id
+
+INNER JOIN User_Salesforce u
+    ON c.OwnerId = u.Id
+
+WHERE
+    c.Disposition__c != 'Not Eligible'
+AND c.Program_Batch_Name__c like '%2026-%'
+
+and c. Application_Fee_Paid__c in ('true','false')
+
+and c.Program_Type__c in ('UG','PG')
+
+AND a.hed__Application_Status__c IN (
+        'Started',
+        'Incomplete',
+        'Submitted',
+        'In Review',
+        'Awaiting Documents',
+        'Interested',
+        'Provisionally Offered'
+    )
+
+AND c.Program_Name__c LIKE '%Master of Computer Applications%'
+
+AND c.Email IS NOT NULL
+AND c.Email <> ''
+
+AND c.MobilePhone IS NOT NULL
+AND c.MobilePhone <> ''
