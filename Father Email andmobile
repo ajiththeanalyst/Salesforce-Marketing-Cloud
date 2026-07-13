@@ -1,0 +1,113 @@
+SELECT
+    CONCAT(
+        c.Email,
+        '_',
+        CASE
+            WHEN c.MobilePhone LIKE '+91-%' THEN REPLACE(c.MobilePhone,'+91-','91')
+            WHEN c.MobilePhone LIKE '91%' THEN c.MobilePhone
+            ELSE CONCAT('91',c.MobilePhone)
+        END,
+        '_534019461'
+    ) AS SubscriberKey,
+
+    'IN' AS Locale,
+
+    a.Id AS ApplicationId,
+    c.Name AS Student_full_name,
+    c.Email,
+
+    CASE
+        WHEN c.MobilePhone LIKE '+91-%' THEN REPLACE(c.MobilePhone,'+91-','91')
+        WHEN c.MobilePhone LIKE '91%' THEN c.MobilePhone
+        ELSE CONCAT('91',c.MobilePhone)
+    END AS StudentMobile,
+
+    c.Country__c,
+    c.Application_Number__c AS ApplicationNumber,
+    c.Disposition__c,
+    c.Program_Batch_Name__c,
+    c.Program_Type__c,
+    c.School_Name__c,
+    c.Primary_Academic_Program__c,
+    c.Program_Name__c AS Programme,
+    a.hed__Application_Status__c AS ApplicationStatus,
+    a.Partial_Paid__c,
+
+    u.Name AS CounsellorName,
+    u.MobilePhone AS CounsellorNumber,
+
+    CASE
+        WHEN c.Father_Email_ID__c IS NOT NULL
+             AND c.Father_Email_ID__c <> ''
+        THEN c.Father_Email_ID__c
+
+        WHEN c.Mother_Email_ID__c IS NOT NULL
+             AND c.Mother_Email_ID__c <> ''
+        THEN c.Mother_Email_ID__c
+
+        ELSE NULL
+    END AS ParentEmail,
+
+    CASE
+
+        WHEN c.Father_Mobile_Number__c IS NOT NULL
+             AND c.Father_Mobile_Number__c <> ''
+             AND c.Father_Mobile_Number__c LIKE '+91-%'
+        THEN REPLACE(c.Father_Mobile_Number__c,'+91-','91')
+
+        WHEN c.Father_Mobile_Number__c IS NOT NULL
+             AND c.Father_Mobile_Number__c <> ''
+             AND c.Father_Mobile_Number__c LIKE '91%'
+        THEN c.Father_Mobile_Number__c
+
+        WHEN c.Father_Mobile_Number__c IS NOT NULL
+             AND c.Father_Mobile_Number__c <> ''
+        THEN CONCAT('91',c.Father_Mobile_Number__c)
+
+        WHEN c.Mother_Mobile_Number__c IS NOT NULL
+             AND c.Mother_Mobile_Number__c <> ''
+             AND c.Mother_Mobile_Number__c LIKE '+91-%'
+        THEN REPLACE(c.Mother_Mobile_Number__c,'+91-','91')
+
+        WHEN c.Mother_Mobile_Number__c IS NOT NULL
+             AND c.Mother_Mobile_Number__c <> ''
+             AND c.Mother_Mobile_Number__c LIKE '91%'
+        THEN c.Mother_Mobile_Number__c
+
+        WHEN c.Mother_Mobile_Number__c IS NOT NULL
+             AND c.Mother_Mobile_Number__c <> ''
+        THEN CONCAT('91',c.Mother_Mobile_Number__c)
+
+        ELSE NULL
+
+    END AS ParentMobile
+
+FROM hed__Application__c_Salesforce a
+
+INNER JOIN Contact_Salesforce c
+ON a.hed__Applicant__c = c.Id
+
+INNER JOIN User_Salesforce u
+ON c.OwnerId = u.Id
+
+WHERE
+    c.Program_Batch_Name__c LIKE '%2026-%'
+    AND c.Program_Type__c <> 'PG'
+    AND c.School_Name__c <> 'School of Legal Studies'
+    AND a.hed__Application_Status__c <> 'Application Lost'
+    AND c.Type__c <> 'Engineering'
+    AND a.Partial_Paid__c = 1
+    AND c.Application_Fee_Paid__c = 1
+    AND c.Program_Name__c NOT IN (
+        'Bachelor of Architecture',
+        'Bachelor of Science in Interior Design'
+    )
+    AND c.Email IS NOT NULL
+    AND c.Email <> ''
+    AND c.MobilePhone IS NOT NULL
+    AND c.MobilePhone <> ''
+    AND (
+        (c.Father_Email_ID__c IS NOT NULL AND c.Father_Email_ID__c <> '')
+        OR
+        (c.Mother_Email_ID__c IS NOT NULL AND c.Mother_Email_ID__c <> '')
+    )
