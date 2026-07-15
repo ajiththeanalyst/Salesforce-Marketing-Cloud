@@ -1,0 +1,77 @@
+SELECT
+    l.Id,
+    l.Name,
+    l.Email,
+    l.Program_Name__c,
+    l.MobilePhone,
+
+    CASE
+        WHEN l.MobilePhone LIKE '+91-%'
+            THEN REPLACE(l.MobilePhone, '+91-', '91')
+        WHEN l.MobilePhone LIKE '91%'
+            THEN l.MobilePhone
+        ELSE '91' + l.MobilePhone
+    END AS ContactMobilePhone,
+
+    'IN' AS Locale,
+
+    l.Email + '_' +
+    CASE
+        WHEN l.MobilePhone LIKE '+91-%'
+            THEN REPLACE(l.MobilePhone, '+91-', '91')
+        WHEN l.MobilePhone LIKE '91%'
+            THEN l.MobilePhone
+        ELSE '91' + l.MobilePhone
+    END +
+    '_534019461' AS SubscriberKey,
+
+    u.Name AS CounselorName,
+    u.MobilePhone AS OwnerMobilePhone,
+    u.IsActive
+
+FROM [Lead_Salesforce] l
+
+LEFT JOIN [User_Salesforce] u
+    ON l.OwnerId = u.Id
+WHERE
+    l.Lead_Status__c = 'Verified'
+    AND l.CreatedDate > '2025-11-15 14:42:11'
+    AND l.Program_Name__c IS NOT NULL
+
+    AND u.IsActive = 1
+    AND l.Email IS NOT NULL
+    AND l.Program_Name__c NOT IN (
+
+    'B.Tech in CSE (IOT and Cybersecurity including Blockchain Technology)',
+
+    'B.Tech. - Mechatronics Engg',
+
+    'B.Tech in Aerospace Engineering',
+
+    'B. Tech in Mechanical Engineering',
+
+    'B. Tech in Electronics and Computer Engineering',
+
+    'B. Tech in Electronics and Communication Engineering',
+
+    'B.Sc. in Bioinformatics, Statistics, Computer Science (BStCs)',
+
+    'Bachelor of Science in Bioinformatics, Statistics and Computer Science',
+
+    'B.Sc. in Biotechnology, Biochemistry, Genetics',
+
+    'B.Sc in Microbiology, Chemistry, and Genetics',
+
+    'M.Sc. in Bioinformatics',
+
+    'M. Tech in Computer Science and Engineering (Full Time)',
+
+    'M.Tech. in Power Electronics',
+
+    'Bachelor of Physiotherapy BPT',
+
+    'BA - LL.B (Honors)',
+
+    'LL M (Business & Corporate Law)'
+
+)
